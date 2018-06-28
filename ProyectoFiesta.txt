@@ -1,0 +1,70 @@
+create database Fiestas;
+use Fiestas;
+
+create table Amenizaciones(
+	Cod_Amenizacion int(2) zerofill not null,
+    Nombre_Amenizacion varchar(50) not null,
+    Costo_Amenizacion decimal(6,2) not null,
+    Telefono int(8) not null,
+    primary key(Cod_Amenizacion)
+)engine=innodb;
+
+create table Locales(
+	Cod_Local int(2) zerofill not null,
+    Nombre_Local varchar(50) not null,
+    Direccion varchar(50) not null,
+    Costo_Renta decimal(6,2) not null,
+    Telefono_Local int(8) not null,
+    primary key(Cod_Local)
+)engine=innodb;
+
+create table Proyectos(
+	Cod_Proyecto int(2) zerofill not null,
+    Descripcion varchar(100) not null,
+    Costo_Previsto decimal(6,2),
+    primary key(Cod_Proyecto)
+)engine=innodb;
+
+create table Fiestas(
+	Cod_Fiesta int(2) zerofill not null,
+    Nombre_Fiesta varchar(50) not null,
+    FechaRealizacion date not null,
+    Ganancia_Prevista decimal(6,2) not null,
+    Cod_Amenizacion_fk int(2) zerofill not null,
+    Cod_Local_fk int(2) zerofill not null,
+    Cod_Proyecto_fk int(2) zerofill not null,
+    index (Cod_Amenizacion_fk), index (Cod_Local_fk), index (Cod_Proyecto_fk),
+    foreign key(Cod_Amenizacion_fk) references Amenizaciones(Cod_Amenizacion),
+    foreign key(Cod_Local_fk) references Locales(Cod_Local),
+    foreign key(Cod_Proyecto_fk) references Proyectos(Cod_Proyecto),
+    primary key(Cod_Fiesta)
+)engine=innodb;
+
+create table Actividades(
+	Cod_Actividad int(3) zerofill not null,
+    Nombre_Actividad varchar(50) not null,
+    Fecha date,
+    primary key(Cod_Actividad)
+)engine=innodb;
+
+create table SubActividades(
+	Cod_Actividad_fk int(3) zerofill not null,
+    Cod_SubActividad int(3) zerofill not null,
+    Nombre_SubActividad varchar(30) not null,
+    Descripcion varchar(100) not null,
+    Fecha_Realizacion date not null,
+	Ingreso decimal(6,2),
+    Egreso decimal(6,2),
+    index (Cod_Actividad_fk),
+    foreign key(Cod_Actividad_fk) references Actividades(Cod_Actividad),
+    primary key(Cod_Actividad_fk,Cod_SubActividad)
+)engine=innodb;
+
+create table ActividadesPorFiesta(
+	Cod_Fiesta_fk int(2) zerofill not null,
+    Cod_Actividad_fk int(3) zerofill not null,
+    index (Cod_Fiesta_fk), index (Cod_Actividad_fk),
+    foreign key(Cod_Fiesta_fk) references Fiestas(Cod_Fiesta),
+    foreign key(Cod_Actividad_fk) references Actividades(Cod_Actividad),
+    primary key(Cod_Fiesta_fk,Cod_Actividad_fk)
+)engine=innodb;
