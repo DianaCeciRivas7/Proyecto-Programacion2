@@ -1,6 +1,7 @@
 package proyectofinalprogra2;
 
 import Paneles.pnlMenuActividades;
+import Paneles.pnlMenuAmenizaciones;
 import Paneles.pnlMenuFiestas;
 import Paneles.pnlMenuLocales;
 import java.awt.Color;
@@ -43,6 +44,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         btnFiestas = new javax.swing.JButton();
         btnLocales = new javax.swing.JButton();
         btnActividades = new javax.swing.JButton();
+        btnAmenizaciones = new javax.swing.JButton();
         pnlContenido = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -158,6 +160,27 @@ public class frmPrincipal extends javax.swing.JFrame {
             }
         });
 
+        btnAmenizaciones.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btnAmenizaciones.setForeground(new java.awt.Color(255, 255, 255));
+        btnAmenizaciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Amenizaciones_off.png"))); // NOI18N
+        btnAmenizaciones.setText("Amenizaciones");
+        btnAmenizaciones.setBorder(null);
+        btnAmenizaciones.setBorderPainted(false);
+        btnAmenizaciones.setContentAreaFilled(false);
+        btnAmenizaciones.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnAmenizacionesMouseExited(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnAmenizacionesMouseEntered(evt);
+            }
+        });
+        btnAmenizaciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAmenizacionesActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlOpcionesLayout = new javax.swing.GroupLayout(pnlOpciones);
         pnlOpciones.setLayout(pnlOpcionesLayout);
         pnlOpcionesLayout.setHorizontalGroup(
@@ -170,6 +193,9 @@ public class frmPrincipal extends javax.swing.JFrame {
                     .addComponent(btnLocales, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
                     .addComponent(btnFiestas, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlOpcionesLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnAmenizaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         pnlOpcionesLayout.setVerticalGroup(
             pnlOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -180,7 +206,9 @@ public class frmPrincipal extends javax.swing.JFrame {
                 .addComponent(btnLocales)
                 .addGap(38, 38, 38)
                 .addComponent(btnActividades)
-                .addContainerGap(245, Short.MAX_VALUE))
+                .addGap(38, 38, 38)
+                .addComponent(btnAmenizaciones)
+                .addContainerGap(162, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout pnlContenidoLayout = new javax.swing.GroupLayout(pnlContenido);
@@ -303,6 +331,28 @@ public class frmPrincipal extends javax.swing.JFrame {
         agregarPanel(new pnlMenuActividades(this));
     }//GEN-LAST:event_btnActividadesActionPerformed
 
+    private void btnAmenizacionesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAmenizacionesMouseEntered
+        btnAmenizaciones.setForeground(Color.LIGHT_GRAY);
+        ImageIcon imagen;
+        String dir = "/Imagenes/Amenizaciones_on.png";
+        URL url = this.getClass().getResource(dir);
+        imagen = new ImageIcon(url);
+        btnAmenizaciones.setIcon(imagen);
+    }//GEN-LAST:event_btnAmenizacionesMouseEntered
+
+    private void btnAmenizacionesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAmenizacionesMouseExited
+        btnAmenizaciones.setForeground(Color.WHITE);
+        ImageIcon imagen;
+        String dir = "/Imagenes/Amenizaciones_off.png";
+        URL url = this.getClass().getResource(dir);
+        imagen = new ImageIcon(url);
+        btnAmenizaciones.setIcon(imagen);
+    }//GEN-LAST:event_btnAmenizacionesMouseExited
+
+    private void btnAmenizacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAmenizacionesActionPerformed
+        agregarPanel(new pnlMenuAmenizaciones(this));
+    }//GEN-LAST:event_btnAmenizacionesActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -338,6 +388,7 @@ public class frmPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActividades;
+    private javax.swing.JButton btnAmenizaciones;
     private javax.swing.JButton btnCerrar;
     private javax.swing.JButton btnFiestas;
     private javax.swing.JButton btnLocales;

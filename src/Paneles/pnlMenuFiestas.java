@@ -1,20 +1,23 @@
 package Paneles;
 
+import TablasDB.Amenizaciones;
+import TablasDB.Locales;
+import TablasDB.Proyectos;
 import java.awt.Color;
 import java.net.URL;
+import java.sql.ResultSet;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import proyectofinalprogra2.frmPrincipal;
 
 public class pnlMenuFiestas extends javax.swing.JPanel {
-    
+
     private frmPrincipal frm;
-    
+
     public pnlMenuFiestas(frmPrincipal frm) {
         initComponents();
         this.frm = frm;
     }
-    
-    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -22,7 +25,7 @@ public class pnlMenuFiestas extends javax.swing.JPanel {
 
         btnVerFiestas = new javax.swing.JButton();
         lblFiestas = new javax.swing.JLabel();
-        btnFiestas = new javax.swing.JButton();
+        btNuevaFiesta = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         btnNuevoProyecto = new javax.swing.JButton();
         btnVerProyectos = new javax.swing.JButton();
@@ -55,23 +58,23 @@ public class pnlMenuFiestas extends javax.swing.JPanel {
         lblFiestas.setForeground(new java.awt.Color(0, 0, 0));
         lblFiestas.setText("Fiestas");
 
-        btnFiestas.setForeground(new java.awt.Color(0, 0, 0));
-        btnFiestas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Agregar_off.png"))); // NOI18N
-        btnFiestas.setText("Nueva fiesta");
-        btnFiestas.setBorder(null);
-        btnFiestas.setBorderPainted(false);
-        btnFiestas.setContentAreaFilled(false);
-        btnFiestas.addMouseListener(new java.awt.event.MouseAdapter() {
+        btNuevaFiesta.setForeground(new java.awt.Color(0, 0, 0));
+        btNuevaFiesta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Agregar_off.png"))); // NOI18N
+        btNuevaFiesta.setText("Nueva fiesta");
+        btNuevaFiesta.setBorder(null);
+        btNuevaFiesta.setBorderPainted(false);
+        btNuevaFiesta.setContentAreaFilled(false);
+        btNuevaFiesta.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnFiestasMouseExited(evt);
+                btNuevaFiestaMouseExited(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnFiestasMouseEntered(evt);
+                btNuevaFiestaMouseEntered(evt);
             }
         });
-        btnFiestas.addActionListener(new java.awt.event.ActionListener() {
+        btNuevaFiesta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnFiestasActionPerformed(evt);
+                btNuevaFiestaActionPerformed(evt);
             }
         });
 
@@ -125,7 +128,7 @@ public class pnlMenuFiestas extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(129, 129, 129)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnFiestas)
+                            .addComponent(btNuevaFiesta)
                             .addComponent(btnNuevoProyecto))
                         .addGap(82, 82, 82)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -144,7 +147,7 @@ public class pnlMenuFiestas extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(154, 154, 154)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnFiestas)
+                            .addComponent(btNuevaFiesta)
                             .addComponent(btnVerFiestas))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -182,27 +185,55 @@ public class pnlMenuFiestas extends javax.swing.JPanel {
 
     }//GEN-LAST:event_btnVerFiestasActionPerformed
 
-    private void btnFiestasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFiestasMouseExited
+    private void btNuevaFiestaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btNuevaFiestaMouseExited
         ImageIcon imagen;
         String dir = "/Imagenes/Agregar_off.png";
-        btnFiestas.setForeground(Color.BLACK);
+        btNuevaFiesta.setForeground(Color.BLACK);
         URL url = this.getClass().getResource(dir);
         imagen = new ImageIcon(url);
-        btnFiestas.setIcon(imagen);
-    }//GEN-LAST:event_btnFiestasMouseExited
+        btNuevaFiesta.setIcon(imagen);
+    }//GEN-LAST:event_btNuevaFiestaMouseExited
 
-    private void btnFiestasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFiestasMouseEntered
+    private void btNuevaFiestaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btNuevaFiestaMouseEntered
         ImageIcon imagen;
         String dir = "/Imagenes/Agregar_on.png";
-        btnFiestas.setForeground(new Color(0, 102, 102));
+        btNuevaFiesta.setForeground(new Color(0, 102, 102));
         URL url = this.getClass().getResource(dir);
         imagen = new ImageIcon(url);
-        btnFiestas.setIcon(imagen);
-    }//GEN-LAST:event_btnFiestasMouseEntered
+        btNuevaFiesta.setIcon(imagen);
+    }//GEN-LAST:event_btNuevaFiestaMouseEntered
 
-    private void btnFiestasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiestasActionPerformed
+    private void btNuevaFiestaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNuevaFiestaActionPerformed
+        int conteoLocales = 0, conteoProyectos = 0, conteoAmenizaciones = 0;
+        ResultSet rs1 = new Locales().obtenerConteoLocales();
+        ResultSet rs2 = new Proyectos().obtenerConteoProyectos();
+        ResultSet rs3 = new Amenizaciones().obtenerConteoAmenizaciones();
+        try {
+            while (rs1.next() && rs2.next() && rs3.next()) {
+                conteoLocales = rs1.getInt("conteo");
+                conteoProyectos = rs2.getInt("conteo");
+                conteoAmenizaciones = rs3.getInt("conteo");
+            }
+        } catch (Exception e) {
+        }
 
-    }//GEN-LAST:event_btnFiestasActionPerformed
+        if (conteoLocales != 0) {
+            if (conteoProyectos != 0) {
+                if (conteoAmenizaciones != 0) {
+                    frm.agregarPanel(new pnlNuevaFiesta());
+                } else {
+                    JOptionPane.showMessageDialog(null, "No hay amenizacion registrada", "Atención", JOptionPane.ERROR_MESSAGE);
+                    frm.agregarPanel(new pnlNuevaAmenizacion());
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "No hay proyectos registrados", "Atención", JOptionPane.ERROR_MESSAGE);
+                frm.agregarPanel(new pnlNuevoProyecto());
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "No hay locales registrados", "Atención", JOptionPane.ERROR_MESSAGE);
+            frm.agregarPanel(new pnlNuevoLocal());
+        }
+    }//GEN-LAST:event_btNuevaFiestaActionPerformed
 
     private void btnNuevoProyectoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNuevoProyectoMouseExited
         ImageIcon imagen;
@@ -223,7 +254,7 @@ public class pnlMenuFiestas extends javax.swing.JPanel {
     }//GEN-LAST:event_btnNuevoProyectoMouseEntered
 
     private void btnNuevoProyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoProyectoActionPerformed
-
+        frm.agregarPanel(new pnlNuevoProyecto());
     }//GEN-LAST:event_btnNuevoProyectoActionPerformed
 
     private void btnVerProyectosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVerProyectosMouseExited
@@ -246,7 +277,7 @@ public class pnlMenuFiestas extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnFiestas;
+    private javax.swing.JButton btNuevaFiesta;
     private javax.swing.JButton btnNuevoProyecto;
     private javax.swing.JButton btnVerFiestas;
     private javax.swing.JButton btnVerProyectos;

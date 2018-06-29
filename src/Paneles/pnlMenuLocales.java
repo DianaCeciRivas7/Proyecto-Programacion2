@@ -151,7 +151,7 @@ public class pnlMenuLocales extends javax.swing.JPanel {
     }//GEN-LAST:event_btnNuevoLocalMouseEntered
 
     private void btnNuevoLocalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoLocalActionPerformed
-
+        frm.agregarPanel(new pnlNuevoLocal());
     }//GEN-LAST:event_btnNuevoLocalActionPerformed
 
 
