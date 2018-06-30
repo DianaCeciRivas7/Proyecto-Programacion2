@@ -60,4 +60,8 @@ public class Amenizaciones {
     public ResultSet obtenerConteoAmenizaciones() {
         return cn.getValores("select count(Cod_Amenizacion) as conteo from Amenizaciones;");
     }
+    
+    public ResultSet obtenerAmenizaciones() {
+        return cn.getValores("select * from Amenizaciones;");
+    }
 }

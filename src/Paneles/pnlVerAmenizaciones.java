@@ -2,35 +2,32 @@ package Paneles;
 
 import java.sql.ResultSet;
 import javax.swing.table.DefaultTableModel;
-import TablasDB.Fiestas;
+import TablasDB.Amenizaciones;
 
-public class pnlVerFiestas extends javax.swing.JPanel {
+public class pnlVerAmenizaciones extends javax.swing.JPanel {
 
-    private Fiestas fiestas = new Fiestas();
-
-    private DefaultTableModel modeloFiestas = new DefaultTableModel() {
+    private Amenizaciones amenizaciones = new Amenizaciones();
+    
+    private DefaultTableModel modeloAmenizaciones = new DefaultTableModel() {
         public boolean isCellEditable(int rowIndex, int columnIndex) {
             return false;
         }
     };
 
-    public pnlVerFiestas() {
+    public pnlVerAmenizaciones() {
         initComponents();
 
-        modeloFiestas.addColumn("Código");
-        modeloFiestas.addColumn("Nombre fiesta");
-        modeloFiestas.addColumn("Fecha");
-        modeloFiestas.addColumn("Ganancia prevista");
-        modeloFiestas.addColumn("Amenización");
-        modeloFiestas.addColumn("Local");
-        modeloFiestas.addColumn("Proyecto");
+        modeloAmenizaciones.addColumn("Código");
+        modeloAmenizaciones.addColumn("Nombre amenización");
+        modeloAmenizaciones.addColumn("Costo");
+        modeloAmenizaciones.addColumn("Teléfono");
 
         llenarTabla();
     }
 
     public void limpiarTabla() {
-        for (int posicion = 0; posicion < tblFiestas.getRowCount(); posicion++) {
-            modeloFiestas.removeRow(posicion);
+        for (int posicion = 0; posicion < tblAmenizaciones.getRowCount(); posicion++) {
+            modeloAmenizaciones.removeRow(posicion);
             posicion--;
         }
     }
@@ -38,28 +35,25 @@ public class pnlVerFiestas extends javax.swing.JPanel {
     public void llenarTabla() {
         limpiarTabla();
 
-        for (int column = 0; column < tblFiestas.getColumnModel().getColumnCount(); column++) {
-            tblFiestas.getColumnModel().getColumn(column).setResizable(false);
+        for (int column = 0; column < tblAmenizaciones.getColumnModel().getColumnCount(); column++) {
+            tblAmenizaciones.getColumnModel().getColumn(column).setResizable(false);
         }
-        tblFiestas.getTableHeader().setReorderingAllowed(false);
+        tblAmenizaciones.getTableHeader().setReorderingAllowed(false);
 
-        ResultSet rs = fiestas.obtenerFiestas();
+        ResultSet rs = amenizaciones.obtenerAmenizaciones();
 
         try {
             while (rs.next()) {
-                int codigo = rs.getInt("Cod_Fiesta");
-                String nombreFiesta = rs.getString("Nombre_Fiesta");
-                String fecha = rs.getString("FechaRealizacion");
-                String ganancia = rs.getString("Ganancia_Prevista");
+                int codigo = rs.getInt("Cod_Amenizacion");
                 String nombreAmenizacion = rs.getString("Nombre_Amenizacion");
-                String nombreLocal = rs.getString("Nombre_Local");
-                String proyecto = rs.getString("Descripcion");
-                modeloFiestas.addRow(new Object[]{codigo, nombreFiesta, fecha, ganancia, nombreAmenizacion, nombreLocal, proyecto});
+                String costo = rs.getString("Costo_Amenizacion");
+                String telefono = rs.getString("Telefono");
+                modeloAmenizaciones.addRow(new Object[]{codigo, nombreAmenizacion, costo, telefono});
             }
-            tblFiestas.setModel(modeloFiestas);
+            tblAmenizaciones.setModel(modeloAmenizaciones);
         } catch (Exception e) {
         }
-        tblFiestas.setDefaultRenderer(Object.class, new ColorFilas());
+        tblAmenizaciones.setDefaultRenderer(Object.class, new ColorFilas());
     }
 
     @SuppressWarnings("unchecked")
@@ -67,20 +61,20 @@ public class pnlVerFiestas extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblFiestas = new javax.swing.JTable();
-        lblFiesta = new javax.swing.JLabel();
+        tblAmenizaciones = new javax.swing.JTable();
+        lblAmenizacion = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(204, 204, 204));
         setPreferredSize(new java.awt.Dimension(721, 562));
 
-        tblFiestas.setModel(modeloFiestas);
-        jScrollPane1.setViewportView(tblFiestas);
+        tblAmenizaciones.setModel(modeloAmenizaciones);
+        jScrollPane1.setViewportView(tblAmenizaciones);
 
-        lblFiesta.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        lblFiesta.setForeground(new java.awt.Color(0, 0, 0));
-        lblFiesta.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblFiesta.setText("Fiestas");
+        lblAmenizacion.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        lblAmenizacion.setForeground(new java.awt.Color(0, 0, 0));
+        lblAmenizacion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblAmenizacion.setText("Amenizaciones");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -94,14 +88,14 @@ public class pnlVerFiestas extends javax.swing.JPanel {
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(lblFiesta)))
+                        .addComponent(lblAmenizacion)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(12, 12, 12)
-                .addComponent(lblFiesta)
+                .addComponent(lblAmenizacion)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -113,7 +107,7 @@ public class pnlVerFiestas extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblFiesta;
-    private javax.swing.JTable tblFiestas;
+    private javax.swing.JLabel lblAmenizacion;
+    private javax.swing.JTable tblAmenizaciones;
     // End of variables declaration//GEN-END:variables
 }

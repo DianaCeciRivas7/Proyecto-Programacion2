@@ -2,35 +2,33 @@ package Paneles;
 
 import java.sql.ResultSet;
 import javax.swing.table.DefaultTableModel;
-import TablasDB.Fiestas;
+import TablasDB.Locales;
 
-public class pnlVerFiestas extends javax.swing.JPanel {
+public class pnlVerLocales extends javax.swing.JPanel {
 
-    private Fiestas fiestas = new Fiestas();
+    private Locales locales = new Locales();
 
-    private DefaultTableModel modeloFiestas = new DefaultTableModel() {
+    private DefaultTableModel modeloLocales = new DefaultTableModel() {
         public boolean isCellEditable(int rowIndex, int columnIndex) {
             return false;
         }
     };
 
-    public pnlVerFiestas() {
+    public pnlVerLocales() {
         initComponents();
 
-        modeloFiestas.addColumn("Código");
-        modeloFiestas.addColumn("Nombre fiesta");
-        modeloFiestas.addColumn("Fecha");
-        modeloFiestas.addColumn("Ganancia prevista");
-        modeloFiestas.addColumn("Amenización");
-        modeloFiestas.addColumn("Local");
-        modeloFiestas.addColumn("Proyecto");
+        modeloLocales.addColumn("Código");
+        modeloLocales.addColumn("Nombre local");
+        modeloLocales.addColumn("Dirección");
+        modeloLocales.addColumn("Costo de renta");
+        modeloLocales.addColumn("Teféfono");
 
         llenarTabla();
     }
 
     public void limpiarTabla() {
-        for (int posicion = 0; posicion < tblFiestas.getRowCount(); posicion++) {
-            modeloFiestas.removeRow(posicion);
+        for (int posicion = 0; posicion < tblLocales.getRowCount(); posicion++) {
+            modeloLocales.removeRow(posicion);
             posicion--;
         }
     }
@@ -38,28 +36,26 @@ public class pnlVerFiestas extends javax.swing.JPanel {
     public void llenarTabla() {
         limpiarTabla();
 
-        for (int column = 0; column < tblFiestas.getColumnModel().getColumnCount(); column++) {
-            tblFiestas.getColumnModel().getColumn(column).setResizable(false);
+        for (int column = 0; column < tblLocales.getColumnModel().getColumnCount(); column++) {
+            tblLocales.getColumnModel().getColumn(column).setResizable(false);
         }
-        tblFiestas.getTableHeader().setReorderingAllowed(false);
+        tblLocales.getTableHeader().setReorderingAllowed(false);
 
-        ResultSet rs = fiestas.obtenerFiestas();
+        ResultSet rs = locales.obtenerLocales();
 
         try {
             while (rs.next()) {
-                int codigo = rs.getInt("Cod_Fiesta");
-                String nombreFiesta = rs.getString("Nombre_Fiesta");
-                String fecha = rs.getString("FechaRealizacion");
-                String ganancia = rs.getString("Ganancia_Prevista");
-                String nombreAmenizacion = rs.getString("Nombre_Amenizacion");
+                int codigo = rs.getInt("Cod_Local");
                 String nombreLocal = rs.getString("Nombre_Local");
-                String proyecto = rs.getString("Descripcion");
-                modeloFiestas.addRow(new Object[]{codigo, nombreFiesta, fecha, ganancia, nombreAmenizacion, nombreLocal, proyecto});
+                String direccion = rs.getString("Direccion");
+                String costo = rs.getString("Costo_Renta");
+                String telefono = rs.getString("Telefono_Local");
+                modeloLocales.addRow(new Object[]{codigo, nombreLocal, direccion, costo, telefono});
             }
-            tblFiestas.setModel(modeloFiestas);
+            tblLocales.setModel(modeloLocales);
         } catch (Exception e) {
         }
-        tblFiestas.setDefaultRenderer(Object.class, new ColorFilas());
+        tblLocales.setDefaultRenderer(Object.class, new ColorFilas());
     }
 
     @SuppressWarnings("unchecked")
@@ -67,20 +63,20 @@ public class pnlVerFiestas extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblFiestas = new javax.swing.JTable();
-        lblFiesta = new javax.swing.JLabel();
+        tblLocales = new javax.swing.JTable();
+        lblLocal = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(204, 204, 204));
         setPreferredSize(new java.awt.Dimension(721, 562));
 
-        tblFiestas.setModel(modeloFiestas);
-        jScrollPane1.setViewportView(tblFiestas);
+        tblLocales.setModel(modeloLocales);
+        jScrollPane1.setViewportView(tblLocales);
 
-        lblFiesta.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        lblFiesta.setForeground(new java.awt.Color(0, 0, 0));
-        lblFiesta.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblFiesta.setText("Fiestas");
+        lblLocal.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        lblLocal.setForeground(new java.awt.Color(0, 0, 0));
+        lblLocal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblLocal.setText("Locales");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -94,14 +90,14 @@ public class pnlVerFiestas extends javax.swing.JPanel {
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(lblFiesta)))
+                        .addComponent(lblLocal)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(12, 12, 12)
-                .addComponent(lblFiesta)
+                .addComponent(lblLocal)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -113,7 +109,7 @@ public class pnlVerFiestas extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblFiesta;
-    private javax.swing.JTable tblFiestas;
+    private javax.swing.JLabel lblLocal;
+    private javax.swing.JTable tblLocales;
     // End of variables declaration//GEN-END:variables
 }
