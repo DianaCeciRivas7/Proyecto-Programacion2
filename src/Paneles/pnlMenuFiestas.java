@@ -182,7 +182,7 @@ public class pnlMenuFiestas extends javax.swing.JPanel {
     }//GEN-LAST:event_btnVerFiestasMouseEntered
 
     private void btnVerFiestasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerFiestasActionPerformed
-
+        frm.agregarPanel(new pnlVerFiestas());
     }//GEN-LAST:event_btnVerFiestasActionPerformed
 
     private void btNuevaFiestaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btNuevaFiestaMouseExited
