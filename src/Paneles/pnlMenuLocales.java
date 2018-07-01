@@ -1,14 +1,16 @@
 package Paneles;
 
+import TablasDB.Locales;
 import java.awt.Color;
 import java.net.URL;
+import java.sql.ResultSet;
 import javax.swing.ImageIcon;
 import proyectofinalprogra2.frmPrincipal;
 
 public class pnlMenuLocales extends javax.swing.JPanel {
 
-    frmPrincipal frm;
-    
+    private frmPrincipal frm;
+
     public pnlMenuLocales(frmPrincipal frm) {
         initComponents();
         this.frm = frm;
@@ -129,7 +131,18 @@ public class pnlMenuLocales extends javax.swing.JPanel {
     }//GEN-LAST:event_btnVerLocalesMouseEntered
 
     private void btnVerLocalesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerLocalesActionPerformed
-
+        int conteoLocales = 0;
+        ResultSet rs = new Locales().obtenerConteoLocales();
+        try {
+            while (rs.next()) {                
+                conteoLocales = rs.getInt("conteo");
+            }
+        } catch (Exception e) {
+        }
+        
+        if (conteoLocales != 0) {
+            frm.agregarPanel(new pnlVerLocales());
+        }
     }//GEN-LAST:event_btnVerLocalesActionPerformed
 
     private void btnNuevoLocalMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNuevoLocalMouseExited

@@ -56,8 +56,12 @@ public class Proyectos {
     public ResultSet obtenerCodProyecto(String descripcion) {
         return cn.getValores("select Cod_Proyecto from Proyectos where Descripcion='" + descripcion + "' ;");
     }
-    
+
     public ResultSet obtenerConteoProyectos() {
         return cn.getValores("select count(Cod_Proyecto) as conteo from Proyectos;");
+    }
+
+    public ResultSet obtenerProyectos() {
+        return cn.getValores("select * from Proyectos;");
     }
 }

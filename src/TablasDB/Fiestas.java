@@ -52,4 +52,16 @@ public class Fiestas {
     public ResultSet obtenerFiestas() {
         return cn.getValores("select Fiestas.Cod_Fiesta, Fiestas.Nombre_Fiesta, Fiestas.FechaRealizacion, Fiestas.Ganancia_Prevista, Amenizaciones.Nombre_Amenizacion, Locales.Nombre_Local, Proyectos.Descripcion from Fiestas inner join Amenizaciones on Amenizaciones.Cod_Amenizacion=Fiestas.Cod_Amenizacion_fk inner join Locales on Locales.Cod_Local=Fiestas.Cod_Local_fk inner join Proyectos on Proyectos.Cod_Proyecto=Fiestas.Cod_Proyecto_fk;");
     }
+    
+    public ResultSet obtenerConteoFiestas() {
+        return cn.getValores("select count(Cod_Fiesta) as conteo from Fiestas;");
+    }
+    
+    public ResultSet obtenerNombreFiestas() {
+        return cn.getValores("select Nombre_Fiesta from Fiestas;");
+    }
+    
+    public ResultSet obtenerCodFiesta(String nom) {
+        return cn.getValores("select Cod_Fiesta from Fiestas where Nombre_Fiesta='" + nom + "' ;");
+    }
 }

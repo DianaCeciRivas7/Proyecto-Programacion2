@@ -1,13 +1,16 @@
 package Paneles;
 
+import TablasDB.Amenizaciones;
 import java.awt.Color;
 import java.net.URL;
+import java.sql.ResultSet;
 import javax.swing.ImageIcon;
 import proyectofinalprogra2.frmPrincipal;
 
 public class pnlMenuAmenizaciones extends javax.swing.JPanel {
 
-    frmPrincipal frm;
+    private frmPrincipal frm;
+    private Amenizaciones amenizaciones = new Amenizaciones();
     
     public pnlMenuAmenizaciones(frmPrincipal frm) {
         initComponents();
@@ -129,7 +132,18 @@ public class pnlMenuAmenizaciones extends javax.swing.JPanel {
     }//GEN-LAST:event_btnVerAmenizacionesMouseEntered
 
     private void btnVerAmenizacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerAmenizacionesActionPerformed
-
+        int conteoAmenizaciones = 0;
+        ResultSet rs = amenizaciones.obtenerConteoAmenizaciones();
+        try {
+            while (rs.next()) {                
+                conteoAmenizaciones = rs.getInt("conteo");
+            }
+        } catch (Exception e) {
+        }
+        
+        if (conteoAmenizaciones != 0) {
+            frm.agregarPanel(new pnlVerAmenizaciones());
+        }
     }//GEN-LAST:event_btnVerAmenizacionesActionPerformed
 
     private void btnNuevaAmenizacionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNuevaAmenizacionMouseExited

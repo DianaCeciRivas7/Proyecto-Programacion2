@@ -1,6 +1,7 @@
 package Paneles;
 
 import TablasDB.Amenizaciones;
+import TablasDB.Fiestas;
 import TablasDB.Locales;
 import TablasDB.Proyectos;
 import java.awt.Color;
@@ -115,6 +116,11 @@ public class pnlMenuFiestas extends javax.swing.JPanel {
                 btnVerProyectosMouseEntered(evt);
             }
         });
+        btnVerProyectos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerProyectosActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -182,7 +188,18 @@ public class pnlMenuFiestas extends javax.swing.JPanel {
     }//GEN-LAST:event_btnVerFiestasMouseEntered
 
     private void btnVerFiestasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerFiestasActionPerformed
-        frm.agregarPanel(new pnlVerFiestas());
+        int conteoFiestas = 0;
+        ResultSet rs = new Fiestas().obtenerConteoFiestas();
+        try {
+            while (rs.next()) {
+                conteoFiestas = rs.getInt("conteo");
+            }
+        } catch (Exception e) {
+        }
+        
+        if (conteoFiestas != 0) {
+            frm.agregarPanel(new pnlVerFiestas());
+        }
     }//GEN-LAST:event_btnVerFiestasActionPerformed
 
     private void btNuevaFiestaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btNuevaFiestaMouseExited
@@ -274,6 +291,21 @@ public class pnlMenuFiestas extends javax.swing.JPanel {
         imagen = new ImageIcon(url);
         btnVerProyectos.setIcon(imagen);
     }//GEN-LAST:event_btnVerProyectosMouseEntered
+
+    private void btnVerProyectosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerProyectosActionPerformed
+        int conteoProyectos = 0;
+        ResultSet rs = new Proyectos().obtenerConteoProyectos();
+        try {
+            while (rs.next()) {
+                conteoProyectos = rs.getInt("conteo");
+            }
+        } catch (Exception e) {
+        }
+        
+        if (conteoProyectos != 0) {
+            frm.agregarPanel(new pnlVerProyectos());
+        }
+    }//GEN-LAST:event_btnVerProyectosActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -25,7 +25,7 @@ public class pnlVerFiestas extends javax.swing.JPanel {
         modeloFiestas.addColumn("Local");
         modeloFiestas.addColumn("Proyecto");
 
-        llenarTabla("");
+        llenarTabla();
     }
 
     public void limpiarTabla() {
@@ -35,7 +35,7 @@ public class pnlVerFiestas extends javax.swing.JPanel {
         }
     }
 
-    public void llenarTabla(String texto) {
+    public void llenarTabla() {
         limpiarTabla();
 
         for (int column = 0; column < tblFiestas.getColumnModel().getColumnCount(); column++) {

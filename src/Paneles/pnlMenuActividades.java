@@ -1,13 +1,18 @@
 package Paneles;
 
+import TablasDB.Actividades;
+import TablasDB.Fiestas;
+import TablasDB.SubActividades;
 import java.awt.Color;
 import java.net.URL;
+import java.sql.ResultSet;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import proyectofinalprogra2.frmPrincipal;
 
 public class pnlMenuActividades extends javax.swing.JPanel {
-    
-    frmPrincipal frm;
+
+    private frmPrincipal frm;
 
     public pnlMenuActividades(frmPrincipal frm) {
         initComponents();
@@ -39,6 +44,11 @@ public class pnlMenuActividades extends javax.swing.JPanel {
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnVerSubactividadesMouseEntered(evt);
+            }
+        });
+        btnVerSubactividades.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerSubactividadesActionPerformed(evt);
             }
         });
 
@@ -195,7 +205,20 @@ public class pnlMenuActividades extends javax.swing.JPanel {
     }//GEN-LAST:event_btnVerActividadesMouseEntered
 
     private void btnVerActividadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerActividadesActionPerformed
+        int conteoActividades = 0;
+        ResultSet rs = new Actividades().obtenerConteoActividades();
+        try {
+            while (rs.next()) {
+                conteoActividades = rs.getInt("conteo");
+            }
+        } catch (Exception e) {
+        }
 
+        if (conteoActividades != 0) {
+            frm.agregarPanel(new pnlVerActividades());
+        } else {
+            JOptionPane.showMessageDialog(null, "No hay actividades registradas", "Atención", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnVerActividadesActionPerformed
 
     private void btnNuevaActividadMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNuevaActividadMouseExited
@@ -217,7 +240,20 @@ public class pnlMenuActividades extends javax.swing.JPanel {
     }//GEN-LAST:event_btnNuevaActividadMouseEntered
 
     private void btnNuevaActividadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaActividadActionPerformed
+        int conteoFiestas = 0;
+        ResultSet rs = new Fiestas().obtenerConteoFiestas();
+        try {
+            while (rs.next()) {
+                conteoFiestas = rs.getInt("conteo");
+            }
+        } catch (Exception e) {
+        }
 
+        if (conteoFiestas != 0) {
+            frm.agregarPanel(new pnlNuevaActividad());
+        } else {
+            JOptionPane.showMessageDialog(null, "No hay fiestas registradas", "Atención", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnNuevaActividadActionPerformed
 
     private void btnNuevaSubactividadMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNuevaSubactividadMouseExited
@@ -239,8 +275,38 @@ public class pnlMenuActividades extends javax.swing.JPanel {
     }//GEN-LAST:event_btnNuevaSubactividadMouseEntered
 
     private void btnNuevaSubactividadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaSubactividadActionPerformed
+        int conteoActividades = 0;
+        ResultSet rs = new Actividades().obtenerConteoActividades();
+        try {
+            while (rs.next()) {
+                conteoActividades = rs.getInt("conteo");
+            }
+        } catch (Exception e) {
+        }
 
+        if (conteoActividades != 0) {
+            frm.agregarPanel(new pnlNuevaSubactividad());
+        } else {
+            JOptionPane.showMessageDialog(null, "No hay actividades registradas", "Atención", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnNuevaSubactividadActionPerformed
+
+    private void btnVerSubactividadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerSubactividadesActionPerformed
+        int conteoSubActividades = 0;
+        ResultSet rs = new SubActividades().obtenerConteoSubActividades();
+        try {
+            while (rs.next()) {
+                conteoSubActividades = rs.getInt("conteo");
+            }
+        } catch (Exception e) {
+        }
+
+        if (conteoSubActividades != 0) {
+            frm.agregarPanel(new pnlVerSubActividades());
+        } else {
+            JOptionPane.showMessageDialog(null, "No hay sub-actividades registradas", "Atención", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnVerSubactividadesActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -1,9 +1,10 @@
-
 package TablasDB;
 
+import java.sql.ResultSet;
+
 public class Actividades {
-    
-        Conexion cn = new Conexion();
+
+    Conexion cn = new Conexion();
 
     public void AgregarActividades(Object p[]) throws Exception {
 
@@ -44,4 +45,23 @@ public class Actividades {
         }
     }
 
+    public ResultSet obtenerMaxCodActividad() {
+        return cn.getValores("select max(Cod_Actividad) as maximo from Actividades;");
+    }
+
+    public ResultSet obtenerNombreActividades() {
+        return cn.getValores("select Nombre_Actividad from Actividades;");
+    }
+
+    public ResultSet obtenerCodActividad(String nom) {
+        return cn.getValores("select Cod_Actividad from Actividades where Nombre_Actividad='" + nom + "' ;");
+    }
+
+    public ResultSet obtenerConteoActividades() {
+        return cn.getValores("select count(Cod_Actividad) as conteo from Actividades;");
+    }
+    
+    public ResultSet obtenerActividades() {
+        return cn.getValores("select * from Actividades;");
+    }
 }

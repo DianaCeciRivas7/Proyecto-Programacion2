@@ -60,4 +60,8 @@ public class Locales {
     public ResultSet obtenerConteoLocales() {
         return cn.getValores("select count(Cod_Local) as conteo from Locales;");
     }
+    
+    public ResultSet obtenerLocales() {
+        return cn.getValores("select * from Locales;");
+    }
 }
