@@ -35,7 +35,7 @@ public class Locales {
     public void ModificarLocales(Object t[]) throws Exception {
         try {
             cn.conectar();
-            cn.UID("UPDATE Locales set Nombre_Local=\"" + t[1] + "\", Dirección=\"" + t[2] + "\", Costo_Renta=\"" + t[3] + "\", Telefono_Local=\"" + t[4] + "\" where Cod_Director=" + t[0] + "; ");
+            cn.UID("UPDATE Locales set Nombre_Local=\"" + t[1] + "\", Direccion=\"" + t[2] + "\", Costo_Renta=\"" + t[3] + "\", Telefono_Local=\"" + t[4] + "\" where Cod_Local=" + t[0] + "; ");
             cn.desconectar();
         } catch (Exception e) {
             System.out.println("No logra modificar");
@@ -53,15 +53,23 @@ public class Locales {
         return cn.getValores("select Nombre_Local  from Locales;");
     }
 
+    public ResultSet obtenerNombreLocal(int p) {
+        return cn.getValores("select Nombre_Local  from Locales where Cod_Local=" + p + " ;");
+    }
+
     public ResultSet obtenerCodLocal(String nom) {
         return cn.getValores("select Cod_Local from Locales where Nombre_Local='" + nom + "' ;");
     }
-    
+
     public ResultSet obtenerConteoLocales() {
         return cn.getValores("select count(Cod_Local) as conteo from Locales;");
     }
-    
+
     public ResultSet obtenerLocales() {
         return cn.getValores("select * from Locales;");
+    }
+
+    public ResultSet obtenerLocal(int p) {
+        return cn.getValores("select * from Locales where Cod_Local=" + p + " ;");
     }
 }

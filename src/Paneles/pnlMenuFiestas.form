@@ -35,25 +35,30 @@
                       </Group>
                       <EmptySpace min="-2" pref="82" max="-2" attributes="0"/>
                       <Component id="jSeparator1" min="-2" pref="13" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="btnVerFiestas" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnVerProyectos" min="-2" max="-2" attributes="0"/>
-                      </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="141" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="btnVerFiestas" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnVerProyectos" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnVerActividadesPorFiesta" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel1" alignment="0" min="-2" pref="159" max="-2" attributes="0"/>
+                  <Component id="jLabel2" alignment="0" min="-2" pref="76" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="7" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
+          <Group type="102" alignment="1" attributes="0">
               <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
               <Component id="lblFiestas" min="-2" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
+              <EmptySpace min="-2" pref="118" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Group type="102" attributes="0">
-                      <EmptySpace min="154" pref="154" max="-2" attributes="0"/>
+                      <Component id="jLabel2" min="-2" pref="15" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="btNuevaFiesta" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="btnVerFiestas" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -68,13 +73,14 @@
                               <Component id="btnVerProyectos" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
+                      <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
+                      <Component id="btnVerActividadesPorFiesta" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jLabel1" min="-2" pref="19" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="125" max="-2" attributes="0"/>
-                      <Component id="jSeparator1" min="-2" pref="199" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="jSeparator1" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace pref="188" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="131" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -186,6 +192,31 @@
         <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnVerProyectosMouseEntered"/>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnVerProyectosActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnVerActividadesPorFiesta">
+      <Properties>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="0" green="0" red="0" type="rgb"/>
+        </Property>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/Imagenes/VerActividadesPorFiesta_off.png"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Ver sub-actividades por fiesta"/>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="null"/>
+        </Property>
+        <Property name="borderPainted" type="boolean" value="false"/>
+        <Property name="contentAreaFilled" type="boolean" value="false"/>
+      </Properties>
+      <Events>
+        <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnVerActividadesPorFiestaMouseExited"/>
+        <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnVerActividadesPorFiestaMouseEntered"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnVerActividadesPorFiestaActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel1">
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel2">
     </Component>
   </SubComponents>
 </Form>

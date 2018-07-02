@@ -35,7 +35,7 @@ public class Proyectos {
     public void ModificarProyectos(Object t[]) throws Exception {
         try {
             cn.conectar();
-            cn.UID("UPDATE Proyectos set Descripción=\"" + t[1] + "\", Costo_Previsto=\"" + t[2] + "\" where Cod_Proyecto=" + t[0] + "; ");
+            cn.UID("UPDATE Proyectos set Descripcion=\"" + t[1] + "\", Costo_Previsto=\"" + t[2] + "\" where Cod_Proyecto=" + t[0] + "; ");
             cn.desconectar();
         } catch (Exception e) {
             System.out.println("No logra modificar");
@@ -63,5 +63,9 @@ public class Proyectos {
 
     public ResultSet obtenerProyectos() {
         return cn.getValores("select * from Proyectos;");
+    }
+
+    public ResultSet obtenerProyecto(int p) {
+        return cn.getValores("select * from Proyectos where Cod_Proyecto=" + p + " ;");
     }
 }

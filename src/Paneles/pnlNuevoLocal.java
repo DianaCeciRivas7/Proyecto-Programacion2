@@ -1,6 +1,7 @@
 package Paneles;
 
 import TablasDB.Locales;
+import com.sun.glass.events.KeyEvent;
 import java.awt.Color;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -58,9 +59,26 @@ public class pnlNuevoLocal extends javax.swing.JPanel {
         lblRenta.setForeground(new java.awt.Color(0, 0, 0));
         lblRenta.setText("Costo renta:");
 
+        txtRenta.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtRentaFocusLost(evt);
+            }
+        });
+        txtRenta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtRentaKeyTyped(evt);
+            }
+        });
+
         lblTelefono.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         lblTelefono.setForeground(new java.awt.Color(0, 0, 0));
         lblTelefono.setText("Teléfono:");
+
+        txtTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTelefonoKeyTyped(evt);
+            }
+        });
 
         btnAceptar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         btnAceptar.setForeground(new java.awt.Color(0, 0, 0));
@@ -80,6 +98,18 @@ public class pnlNuevoLocal extends javax.swing.JPanel {
         btnAceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAceptarActionPerformed(evt);
+            }
+        });
+
+        txtLocal.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtLocalKeyTyped(evt);
+            }
+        });
+
+        txtDireccion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDireccionKeyTyped(evt);
             }
         });
 
@@ -186,7 +216,7 @@ public class pnlNuevoLocal extends javax.swing.JPanel {
             } catch (Exception e) {
             }
             llenarCodLocal();
-            
+
             txtDireccion.setText("");
             txtLocal.setText("");
             txtLocal.requestFocus();
@@ -196,6 +226,52 @@ public class pnlNuevoLocal extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Campos  vacíos", "Atencion", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnAceptarActionPerformed
+
+    private void txtLocalKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLocalKeyTyped
+        if (txtLocal.getText().length() >= 50) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtLocalKeyTyped
+
+    private void txtDireccionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDireccionKeyTyped
+        if (txtDireccion.getText().length() >= 50) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtDireccionKeyTyped
+
+    private void txtRentaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRentaKeyTyped
+        char caracter = evt.getKeyChar();
+        if (((caracter < '0') || (caracter > '9'))
+                && (caracter != KeyEvent.VK_BACKSPACE)
+                && (caracter != '.' || txtRenta.getText().contains(".")) && caracter != KeyEvent.VK_ENTER) {
+            evt.consume();
+        }
+        if (txtRenta.getText().length() == 0) {
+            if (!Character.isDigit(caracter)) {
+                evt.consume();
+            }
+        } else if (txtRenta.getText().length() == 4) {
+            if (caracter != '.' && !txtRenta.getText().contains(".")) {
+                evt.consume();
+            }
+        } else if (txtRenta.getText().length() >= 7) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtRentaKeyTyped
+
+    private void txtRentaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtRentaFocusLost
+        if (!txtRenta.getText().isEmpty()) {
+            double num = Math.round(Double.parseDouble(txtRenta.getText()) * 100) / 100.0;
+            txtRenta.setText("" + num);
+        }
+    }//GEN-LAST:event_txtRentaFocusLost
+
+    private void txtTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyTyped
+        char caracter = evt.getKeyChar();
+        if (!Character.isDigit(caracter) || txtTelefono.getText().length() >= 8) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtTelefonoKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

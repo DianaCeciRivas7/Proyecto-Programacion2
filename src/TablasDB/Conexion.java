@@ -11,7 +11,7 @@ public class Conexion {
 
     private String url = "jdbc:mysql://127.0.0.1:3306/Fiestas";
     private String login = "root";
-    private String password = "nozomi";
+    private String password = "Dianitari7";
     private Connection cnx = null;
     private Statement sttm = null;
     private ResultSet rst = null;
@@ -43,9 +43,7 @@ public class Conexion {
 
     public void desconectar() {
         try {
-
             cnx.close();
-            System.out.println("Se cerro la conexion");
         } catch (SQLException ex) {
 
         }

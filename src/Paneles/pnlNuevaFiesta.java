@@ -4,6 +4,7 @@ import TablasDB.Amenizaciones;
 import TablasDB.Fiestas;
 import TablasDB.Locales;
 import TablasDB.Proyectos;
+import com.sun.glass.events.KeyEvent;
 import java.awt.Color;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -153,6 +154,12 @@ public class pnlNuevaFiesta extends javax.swing.JPanel {
         lblAmenizacion.setForeground(new java.awt.Color(0, 0, 0));
         lblAmenizacion.setText("Amenización:");
 
+        txtNombreFiesta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreFiestaKeyTyped(evt);
+            }
+        });
+
         lblCodAmenizacion.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         lblCodAmenizacion.setForeground(new java.awt.Color(0, 0, 0));
         lblCodAmenizacion.setText("*");
@@ -225,6 +232,17 @@ public class pnlNuevaFiesta extends javax.swing.JPanel {
         lblGanancia.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         lblGanancia.setForeground(new java.awt.Color(0, 0, 0));
         lblGanancia.setText("Ganancia prevista:");
+
+        txtGanancia.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtGananciaFocusLost(evt);
+            }
+        });
+        txtGanancia.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtGananciaKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -348,7 +366,7 @@ public class pnlNuevaFiesta extends javax.swing.JPanel {
                 fiestas.AgregarFiestas(p);
             } catch (Exception e) {
             }
-            
+
             llenarCodigoFiesta();
             txtNombreFiesta.setText("");
             txtNombreFiesta.requestFocus();
@@ -375,6 +393,39 @@ public class pnlNuevaFiesta extends javax.swing.JPanel {
         imagen = new ImageIcon(url);
         btnAceptar.setIcon(imagen);
     }//GEN-LAST:event_btnAceptarMouseExited
+
+    private void txtNombreFiestaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreFiestaKeyTyped
+        if (txtNombreFiesta.getText().length() >= 50) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtNombreFiestaKeyTyped
+
+    private void txtGananciaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtGananciaKeyTyped
+        char caracter = evt.getKeyChar();
+        if (((caracter < '0') || (caracter > '9'))
+                && (caracter != KeyEvent.VK_BACKSPACE)
+                && (caracter != '.' || txtGanancia.getText().contains(".")) && caracter != KeyEvent.VK_ENTER) {
+            evt.consume();
+        }
+        if (txtGanancia.getText().length() == 0) {
+            if (!Character.isDigit(caracter)) {
+                evt.consume();
+            }
+        } else if (txtGanancia.getText().length() == 4) {
+            if (caracter != '.' && !txtGanancia.getText().contains(".")) {
+                evt.consume();
+            }
+        } else if (txtGanancia.getText().length() >= 7) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtGananciaKeyTyped
+
+    private void txtGananciaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtGananciaFocusLost
+        if (!txtGanancia.getText().isEmpty()) {
+            double num = Math.round(Double.parseDouble(txtGanancia.getText()) * 100) / 100.0;
+            txtGanancia.setText("" + num);
+        }
+    }//GEN-LAST:event_txtGananciaFocusLost
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

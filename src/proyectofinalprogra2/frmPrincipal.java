@@ -1,13 +1,18 @@
 package proyectofinalprogra2;
 
+import Paneles.pnlIngresosEgresos;
 import Paneles.pnlMenuActividades;
 import Paneles.pnlMenuAmenizaciones;
 import Paneles.pnlMenuFiestas;
 import Paneles.pnlMenuLocales;
+import TablasDB.Fiestas;
+import TablasDB.SubActividades;
 import java.awt.Color;
 import java.net.URL;
+import java.sql.ResultSet;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class frmPrincipal extends javax.swing.JFrame {
@@ -18,10 +23,13 @@ public class frmPrincipal extends javax.swing.JFrame {
         btnFiestas.setToolTipText("Mostrar fiestas");
         btnLocales.setToolTipText("Mostrar locales registrados");
         btnActividades.setToolTipText("Mostrar actividades");
+        btnAmenizaciones.setToolTipText("Mostrar amenizaciones");
+        btnIngresosEgresos.setToolTipText("Mostrar ingresos y egresos");
         btnFiestasActionPerformed(null);
 
         this.setLocationRelativeTo(null);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        this.setTitle("Control fiestas");
     }
 
     public void agregarPanel(JPanel pnl) {
@@ -45,9 +53,11 @@ public class frmPrincipal extends javax.swing.JFrame {
         btnLocales = new javax.swing.JButton();
         btnActividades = new javax.swing.JButton();
         btnAmenizaciones = new javax.swing.JButton();
+        btnIngresosEgresos = new javax.swing.JButton();
         pnlContenido = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setIconImage(new ImageIcon(getClass().getResource("/Imagenes/ProyectoFiestas.png")).getImage());
         setUndecorated(true);
 
         pnlSuperior.setBackground(new java.awt.Color(153, 153, 153));
@@ -181,6 +191,27 @@ public class frmPrincipal extends javax.swing.JFrame {
             }
         });
 
+        btnIngresosEgresos.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btnIngresosEgresos.setForeground(new java.awt.Color(255, 255, 255));
+        btnIngresosEgresos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/IngresosEgresos_off.png"))); // NOI18N
+        btnIngresosEgresos.setText("Ingresos y Egresos");
+        btnIngresosEgresos.setBorder(null);
+        btnIngresosEgresos.setBorderPainted(false);
+        btnIngresosEgresos.setContentAreaFilled(false);
+        btnIngresosEgresos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnIngresosEgresosMouseExited(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnIngresosEgresosMouseEntered(evt);
+            }
+        });
+        btnIngresosEgresos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIngresosEgresosActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlOpcionesLayout = new javax.swing.GroupLayout(pnlOpciones);
         pnlOpciones.setLayout(pnlOpcionesLayout);
         pnlOpcionesLayout.setHorizontalGroup(
@@ -196,6 +227,10 @@ public class frmPrincipal extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlOpcionesLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(btnAmenizaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlOpcionesLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnIngresosEgresos)
+                .addContainerGap())
         );
         pnlOpcionesLayout.setVerticalGroup(
             pnlOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -208,7 +243,9 @@ public class frmPrincipal extends javax.swing.JFrame {
                 .addComponent(btnActividades)
                 .addGap(38, 38, 38)
                 .addComponent(btnAmenizaciones)
-                .addContainerGap(162, Short.MAX_VALUE))
+                .addGap(38, 38, 38)
+                .addComponent(btnIngresosEgresos)
+                .addContainerGap(76, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout pnlContenidoLayout = new javax.swing.GroupLayout(pnlContenido);
@@ -353,6 +390,53 @@ public class frmPrincipal extends javax.swing.JFrame {
         agregarPanel(new pnlMenuAmenizaciones(this));
     }//GEN-LAST:event_btnAmenizacionesActionPerformed
 
+    private void btnIngresosEgresosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIngresosEgresosMouseEntered
+        btnIngresosEgresos.setForeground(Color.LIGHT_GRAY);
+        ImageIcon imagen;
+        String dir = "/Imagenes/IngresosEgresos_on.png";
+        URL url = this.getClass().getResource(dir);
+        imagen = new ImageIcon(url);
+        btnIngresosEgresos.setIcon(imagen);
+    }//GEN-LAST:event_btnIngresosEgresosMouseEntered
+
+    private void btnIngresosEgresosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIngresosEgresosMouseExited
+        btnIngresosEgresos.setForeground(Color.WHITE);
+        ImageIcon imagen;
+        String dir = "/Imagenes/IngresosEgresos_off.png";
+        URL url = this.getClass().getResource(dir);
+        imagen = new ImageIcon(url);
+        btnIngresosEgresos.setIcon(imagen);
+    }//GEN-LAST:event_btnIngresosEgresosMouseExited
+
+    private void btnIngresosEgresosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresosEgresosActionPerformed
+        int conteoFiestas = 0, conteoSubActividades = 0;
+        ResultSet rs = new Fiestas().obtenerConteoFiestas();
+        try {
+            while (rs.next()) {                
+                conteoFiestas = rs.getInt("conteo");
+            }
+        } catch (Exception e) {
+        }
+        
+        rs = new SubActividades().obtenerConteoSubActividades();
+        try {
+            while (rs.next()) {                
+                conteoSubActividades = rs.getInt("conteo");
+            }
+        } catch (Exception e) {
+        }
+        
+        if (conteoFiestas != 0) {
+            if (conteoSubActividades != 0) {
+                agregarPanel(new pnlIngresosEgresos());
+            } else {
+                JOptionPane.showMessageDialog(null, "No hay sub-actividades registradas", "Atencion", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "No hay fiestas registradas", "Atencion", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnIngresosEgresosActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -391,6 +475,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnAmenizaciones;
     private javax.swing.JButton btnCerrar;
     private javax.swing.JButton btnFiestas;
+    private javax.swing.JButton btnIngresosEgresos;
     private javax.swing.JButton btnLocales;
     private javax.swing.JLabel lblFiestas;
     private javax.swing.JPanel pnlContenido;

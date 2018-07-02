@@ -2,6 +2,7 @@ package Paneles;
 
 import TablasDB.Actividades;
 import TablasDB.SubActividades;
+import com.sun.glass.events.KeyEvent;
 import java.awt.Color;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -100,9 +101,21 @@ public class pnlNuevaSubactividad extends javax.swing.JPanel {
         lblNombreSubActividad.setForeground(new java.awt.Color(0, 0, 0));
         lblNombreSubActividad.setText("Nombre sub-actividad:");
 
+        txtNombreSubActividad.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreSubActividadKeyTyped(evt);
+            }
+        });
+
         lblGanancia.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         lblGanancia.setForeground(new java.awt.Color(0, 0, 0));
         lblGanancia.setText("Descripción:");
+
+        txtDescripcion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDescripcionKeyTyped(evt);
+            }
+        });
 
         lblFecha.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         lblFecha.setForeground(new java.awt.Color(0, 0, 0));
@@ -148,9 +161,31 @@ public class pnlNuevaSubactividad extends javax.swing.JPanel {
         lblIngreso.setForeground(new java.awt.Color(0, 0, 0));
         lblIngreso.setText("Ingreso:");
 
+        txtIngreso.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtIngresoFocusLost(evt);
+            }
+        });
+        txtIngreso.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtIngresoKeyTyped(evt);
+            }
+        });
+
         lblEgreso.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         lblEgreso.setForeground(new java.awt.Color(0, 0, 0));
         lblEgreso.setText("Egreso:");
+
+        txtEgreso.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtEgresoFocusLost(evt);
+            }
+        });
+        txtEgreso.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtEgresoKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -249,7 +284,19 @@ public class pnlNuevaSubactividad extends javax.swing.JPanel {
             Date fechaIngresada = buscadorFecha.getDate();
             String fecha = "" + formatearFechaIM(fechaIngresada);
 
-            Object[] p = {codActividad, codSubactividad, txtNombreSubActividad.getText(), txtDescripcion.getText(), fecha, txtIngreso.getText(), txtEgreso.getText()};
+            double ingreso, egreso;
+            if (txtIngreso.getText().replaceAll(" ", "").isEmpty()) {
+                ingreso = 0;
+            } else {
+                ingreso = Double.parseDouble(txtIngreso.getText());
+            }
+            if (txtEgreso.getText().replaceAll(" ", "").isEmpty()) {
+                egreso = 0;
+            } else {
+                egreso = Double.parseDouble(txtEgreso.getText());
+            }
+
+            Object[] p = {codActividad, codSubactividad, txtNombreSubActividad.getText(), txtDescripcion.getText(), fecha, ingreso, egreso};
             try {
                 subactividades.AgregarSubActividades(p);
             } catch (Exception e) {
@@ -270,6 +317,72 @@ public class pnlNuevaSubactividad extends javax.swing.JPanel {
         String nom = "" + cmbActividades.getItemAt(cmbActividades.getSelectedIndex());
         llenarCodActividad(nom);
     }//GEN-LAST:event_cmbActividadesItemStateChanged
+
+    private void txtNombreSubActividadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreSubActividadKeyTyped
+        if (txtNombreSubActividad.getText().length() >= 30) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtNombreSubActividadKeyTyped
+
+    private void txtDescripcionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescripcionKeyTyped
+        if (txtDescripcion.getText().length() >= 100) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtDescripcionKeyTyped
+
+    private void txtIngresoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIngresoKeyTyped
+        char caracter = evt.getKeyChar();
+        if (((caracter < '0') || (caracter > '9'))
+                && (caracter != KeyEvent.VK_BACKSPACE)
+                && (caracter != '.' || txtIngreso.getText().contains(".")) && caracter != KeyEvent.VK_ENTER) {
+            evt.consume();
+        }
+        if (txtIngreso.getText().length() == 0) {
+            if (!Character.isDigit(caracter)) {
+                evt.consume();
+            }
+        } else if (txtIngreso.getText().length() == 4) {
+            if (caracter != '.' && !txtIngreso.getText().contains(".")) {
+                evt.consume();
+            }
+        } else if (txtIngreso.getText().length() >= 7) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtIngresoKeyTyped
+
+    private void txtIngresoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtIngresoFocusLost
+        if (!txtIngreso.getText().isEmpty()) {
+            double num = Math.round(Double.parseDouble(txtIngreso.getText()) * 100) / 100.0;
+            txtIngreso.setText("" + num);
+        }
+    }//GEN-LAST:event_txtIngresoFocusLost
+
+    private void txtEgresoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEgresoKeyTyped
+        char caracter = evt.getKeyChar();
+        if (((caracter < '0') || (caracter > '9'))
+                && (caracter != KeyEvent.VK_BACKSPACE)
+                && (caracter != '.' || txtEgreso.getText().contains(".")) && caracter != KeyEvent.VK_ENTER) {
+            evt.consume();
+        }
+        if (txtEgreso.getText().length() == 0) {
+            if (!Character.isDigit(caracter)) {
+                evt.consume();
+            }
+        } else if (txtEgreso.getText().length() == 4) {
+            if (caracter != '.' && !txtEgreso.getText().contains(".")) {
+                evt.consume();
+            }
+        } else if (txtEgreso.getText().length() >= 7) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtEgresoKeyTyped
+
+    private void txtEgresoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEgresoFocusLost
+        if (!txtEgreso.getText().isEmpty()) {
+            double num = Math.round(Double.parseDouble(txtEgreso.getText()) * 100) / 100.0;
+            txtEgreso.setText("" + num);
+        }
+    }//GEN-LAST:event_txtEgresoFocusLost
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

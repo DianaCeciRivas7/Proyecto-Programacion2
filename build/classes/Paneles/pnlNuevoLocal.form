@@ -140,6 +140,10 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtRenta">
+      <Events>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtRentaFocusLost"/>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtRentaKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblTelefono">
       <Properties>
@@ -153,6 +157,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtTelefono">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtTelefonoKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnAceptar">
       <Properties>
@@ -181,8 +188,14 @@
     <Component class="javax.swing.JLabel" name="jLabel1">
     </Component>
     <Component class="javax.swing.JTextField" name="txtLocal">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtLocalKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtDireccion">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtDireccionKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblDireccion">
       <Properties>

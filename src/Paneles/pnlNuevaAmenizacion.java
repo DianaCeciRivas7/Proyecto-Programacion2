@@ -1,6 +1,7 @@
 package Paneles;
 
 import TablasDB.Amenizaciones;
+import com.sun.glass.events.KeyEvent;
 import java.awt.Color;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -8,7 +9,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 public class pnlNuevaAmenizacion extends javax.swing.JPanel {
-    
+
     private Amenizaciones amenizaciones = new Amenizaciones();
     private int codigoAmenizacion;
 
@@ -16,7 +17,7 @@ public class pnlNuevaAmenizacion extends javax.swing.JPanel {
         initComponents();
         llenarCodAmenizacion();
     }
-    
+
     public void llenarCodAmenizacion() {
         ResultSet rs = amenizaciones.obtenerMaxCodAmenizacion();
         try {
@@ -56,6 +57,12 @@ public class pnlNuevaAmenizacion extends javax.swing.JPanel {
         lblNombreAmenizacion.setForeground(new java.awt.Color(0, 0, 0));
         lblNombreAmenizacion.setText("Nombre:");
 
+        txtAmenizacion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtAmenizacionKeyTyped(evt);
+            }
+        });
+
         lblTelefono.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         lblTelefono.setForeground(new java.awt.Color(0, 0, 0));
         lblTelefono.setText("Teléfono:");
@@ -63,6 +70,23 @@ public class pnlNuevaAmenizacion extends javax.swing.JPanel {
         lblCosto.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         lblCosto.setForeground(new java.awt.Color(0, 0, 0));
         lblCosto.setText("Costo:");
+
+        txtCosto.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtCostoFocusLost(evt);
+            }
+        });
+        txtCosto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCostoKeyTyped(evt);
+            }
+        });
+
+        txtTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTelefonoKeyTyped(evt);
+            }
+        });
 
         btnAceptar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         btnAceptar.setForeground(new java.awt.Color(0, 0, 0));
@@ -166,7 +190,7 @@ public class pnlNuevaAmenizacion extends javax.swing.JPanel {
                 amenizaciones.AgregarAmenizaciones(p);
             } catch (Exception e) {
             }
-            
+
             llenarCodAmenizacion();
             txtAmenizacion.setText("");
             txtAmenizacion.requestFocus();
@@ -176,6 +200,46 @@ public class pnlNuevaAmenizacion extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Campos  vacíos", "Atencion", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnAceptarActionPerformed
+
+    private void txtAmenizacionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAmenizacionKeyTyped
+        if (txtAmenizacion.getText().length() >= 50) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtAmenizacionKeyTyped
+
+    private void txtCostoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCostoKeyTyped
+        char caracter = evt.getKeyChar();
+        if (((caracter < '0') || (caracter > '9'))
+                && (caracter != KeyEvent.VK_BACKSPACE)
+                && (caracter != '.' || txtCosto.getText().contains(".")) && caracter != KeyEvent.VK_ENTER) {
+            evt.consume();
+        }
+        if (txtCosto.getText().length() == 0) {
+            if (!Character.isDigit(caracter)) {
+                evt.consume();
+            }
+        } else if (txtCosto.getText().length() == 4) {
+            if (caracter != '.' && !txtCosto.getText().contains(".")) {
+                evt.consume();
+            }
+        } else if (txtCosto.getText().length() >= 7) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtCostoKeyTyped
+
+    private void txtCostoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCostoFocusLost
+        if (!txtCosto.getText().isEmpty()) {
+            double num = Math.round(Double.parseDouble(txtCosto.getText()) * 100) / 100.0;
+            txtCosto.setText("" + num);
+        }
+    }//GEN-LAST:event_txtCostoFocusLost
+
+    private void txtTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyTyped
+        char caracter = evt.getKeyChar();
+        if (!Character.isDigit(caracter) || txtTelefono.getText().length() >= 8) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtTelefonoKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

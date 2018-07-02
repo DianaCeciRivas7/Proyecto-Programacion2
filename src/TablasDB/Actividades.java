@@ -53,6 +53,10 @@ public class Actividades {
         return cn.getValores("select Nombre_Actividad from Actividades;");
     }
 
+    public ResultSet obtenerNombreActividad(int p) {
+        return cn.getValores("select Nombre_Actividad from Actividades where Cod_Actividad=" + p + " ;");
+    }
+
     public ResultSet obtenerCodActividad(String nom) {
         return cn.getValores("select Cod_Actividad from Actividades where Nombre_Actividad='" + nom + "' ;");
     }
@@ -60,8 +64,12 @@ public class Actividades {
     public ResultSet obtenerConteoActividades() {
         return cn.getValores("select count(Cod_Actividad) as conteo from Actividades;");
     }
-    
+
     public ResultSet obtenerActividades() {
         return cn.getValores("select * from Actividades;");
+    }
+
+    public ResultSet obtenerActividad(int p) {
+        return cn.getValores("select * from Actividades where Cod_Actividad=" + p + " ;");
     }
 }

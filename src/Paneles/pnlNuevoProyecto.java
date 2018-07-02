@@ -1,6 +1,7 @@
 package Paneles;
 
 import TablasDB.Proyectos;
+import com.sun.glass.events.KeyEvent;
 import java.awt.Color;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -54,9 +55,26 @@ public class pnlNuevoProyecto extends javax.swing.JPanel {
         lblNombreProyecto.setForeground(new java.awt.Color(0, 0, 0));
         lblNombreProyecto.setText("Nombre proyecto:");
 
+        txtProyecto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtProyectoKeyTyped(evt);
+            }
+        });
+
         lblCosto.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         lblCosto.setForeground(new java.awt.Color(0, 0, 0));
         lblCosto.setText("Costo previsto:");
+
+        txtCosto.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtCostoFocusLost(evt);
+            }
+        });
+        txtCosto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCostoKeyTyped(evt);
+            }
+        });
 
         btnAceptar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         btnAceptar.setForeground(new java.awt.Color(0, 0, 0));
@@ -160,6 +178,39 @@ public class pnlNuevoProyecto extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Campos  vacíos", "Atencion", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnAceptarActionPerformed
+
+    private void txtProyectoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtProyectoKeyTyped
+        if (txtProyecto.getText().length() >= 100) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtProyectoKeyTyped
+
+    private void txtCostoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCostoKeyTyped
+        char caracter = evt.getKeyChar();
+        if (((caracter < '0') || (caracter > '9'))
+                && (caracter != KeyEvent.VK_BACKSPACE)
+                && (caracter != '.' || txtCosto.getText().contains(".")) && caracter != KeyEvent.VK_ENTER) {
+            evt.consume();
+        }
+        if (txtCosto.getText().length() == 0) {
+            if (!Character.isDigit(caracter)) {
+                evt.consume();
+            }
+        } else if (txtCosto.getText().length() == 4) {
+            if (caracter != '.' && !txtCosto.getText().contains(".")) {
+                evt.consume();
+            }
+        } else if (txtCosto.getText().length() >= 7) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtCostoKeyTyped
+
+    private void txtCostoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCostoFocusLost
+        if (!txtCosto.getText().isEmpty()) {
+            double num = Math.round(Double.parseDouble(txtCosto.getText()) * 100) / 100.0;
+            txtCosto.setText("" + num);
+        }
+    }//GEN-LAST:event_txtCostoFocusLost
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -95,6 +95,12 @@ public class pnlNuevaActividad extends javax.swing.JPanel {
         lblNombreActividad.setForeground(new java.awt.Color(0, 0, 0));
         lblNombreActividad.setText("Nombre actividad:");
 
+        txtNombreActividad.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreActividadKeyTyped(evt);
+            }
+        });
+
         lblFecha.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         lblFecha.setForeground(new java.awt.Color(0, 0, 0));
         lblFecha.setText("Fecha realización:");
@@ -157,10 +163,9 @@ public class pnlNuevaActividad extends javax.swing.JPanel {
                             .addComponent(buscadorFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(lblFiesta)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(9, 9, 9)
+                        .addGap(224, 224, 224)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(215, 215, 215)
                                 .addComponent(cmbFiestas, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lblCodFiesta, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -242,6 +247,12 @@ public class pnlNuevaActividad extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Campos  vacíos", "Atencion", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnAceptarActionPerformed
+
+    private void txtNombreActividadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreActividadKeyTyped
+        if (txtNombreActividad.getText().length() >= 50) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtNombreActividadKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

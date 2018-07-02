@@ -53,15 +53,23 @@ public class Amenizaciones {
         return cn.getValores("select Nombre_Amenizacion  from Amenizaciones;");
     }
 
+    public ResultSet obtenerNombreAmenizacion(int p) {
+        return cn.getValores("select Nombre_Amenizacion  from Amenizaciones where Cod_Amenizacion=" + p + " ;");
+    }
+
     public ResultSet obtenerCodAmenizacion(String nom) {
         return cn.getValores("select Cod_Amenizacion from Amenizaciones where Nombre_Amenizacion='" + nom + "' ;");
     }
-    
+
     public ResultSet obtenerConteoAmenizaciones() {
         return cn.getValores("select count(Cod_Amenizacion) as conteo from Amenizaciones;");
     }
-    
+
     public ResultSet obtenerAmenizaciones() {
         return cn.getValores("select * from Amenizaciones;");
+    }
+
+    public ResultSet obtenerAmenizacion(int p) {
+        return cn.getValores("select * from Amenizaciones where Cod_Amenizacion=" + p + " ;");
     }
 }

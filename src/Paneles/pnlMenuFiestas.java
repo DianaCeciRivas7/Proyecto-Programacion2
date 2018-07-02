@@ -1,9 +1,11 @@
 package Paneles;
 
+import TablasDB.Actividades;
 import TablasDB.Amenizaciones;
 import TablasDB.Fiestas;
 import TablasDB.Locales;
 import TablasDB.Proyectos;
+import TablasDB.SubActividades;
 import java.awt.Color;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -30,6 +32,9 @@ public class pnlMenuFiestas extends javax.swing.JPanel {
         jSeparator1 = new javax.swing.JSeparator();
         btnNuevoProyecto = new javax.swing.JButton();
         btnVerProyectos = new javax.swing.JButton();
+        btnVerActividadesPorFiesta = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(204, 204, 204));
 
@@ -122,6 +127,26 @@ public class pnlMenuFiestas extends javax.swing.JPanel {
             }
         });
 
+        btnVerActividadesPorFiesta.setForeground(new java.awt.Color(0, 0, 0));
+        btnVerActividadesPorFiesta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/VerActividadesPorFiesta_off.png"))); // NOI18N
+        btnVerActividadesPorFiesta.setText("Ver sub-actividades por fiesta");
+        btnVerActividadesPorFiesta.setBorder(null);
+        btnVerActividadesPorFiesta.setBorderPainted(false);
+        btnVerActividadesPorFiesta.setContentAreaFilled(false);
+        btnVerActividadesPorFiesta.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnVerActividadesPorFiestaMouseExited(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnVerActividadesPorFiestaMouseEntered(evt);
+            }
+        });
+        btnVerActividadesPorFiesta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerActividadesPorFiestaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -137,21 +162,26 @@ public class pnlMenuFiestas extends javax.swing.JPanel {
                             .addComponent(btNuevaFiesta)
                             .addComponent(btnNuevoProyecto))
                         .addGap(82, 82, 82)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(57, 57, 57)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnVerFiestas)
-                            .addComponent(btnVerProyectos))))
-                .addContainerGap(141, Short.MAX_VALUE))
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(57, 57, 57)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnVerFiestas)
+                    .addComponent(btnVerProyectos)
+                    .addComponent(btnVerActividadesPorFiesta)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(7, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(36, 36, 36)
                 .addComponent(lblFiestas)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(118, 118, 118)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(154, 154, 154)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btNuevaFiesta)
                             .addComponent(btnVerFiestas))
@@ -161,11 +191,13 @@ public class pnlMenuFiestas extends javax.swing.JPanel {
                                 .addComponent(btnNuevoProyecto))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(60, 60, 60)
-                                .addComponent(btnVerProyectos))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(125, 125, 125)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(188, Short.MAX_VALUE))
+                                .addComponent(btnVerProyectos)))
+                        .addGap(48, 48, 48)
+                        .addComponent(btnVerActividadesPorFiesta)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jSeparator1))
+                .addGap(0, 131, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -196,7 +228,7 @@ public class pnlMenuFiestas extends javax.swing.JPanel {
             }
         } catch (Exception e) {
         }
-        
+
         if (conteoFiestas != 0) {
             frm.agregarPanel(new pnlVerFiestas());
         }
@@ -301,18 +333,64 @@ public class pnlMenuFiestas extends javax.swing.JPanel {
             }
         } catch (Exception e) {
         }
-        
+
         if (conteoProyectos != 0) {
             frm.agregarPanel(new pnlVerProyectos());
         }
     }//GEN-LAST:event_btnVerProyectosActionPerformed
 
+    private void btnVerActividadesPorFiestaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVerActividadesPorFiestaMouseEntered
+        ImageIcon imagen;
+        String dir = "/Imagenes/VerActividadesPorFiesta_on.png";
+        btnVerActividadesPorFiesta.setForeground(new Color(0, 102, 102));
+        URL url = this.getClass().getResource(dir);
+        imagen = new ImageIcon(url);
+        btnVerActividadesPorFiesta.setIcon(imagen);
+    }//GEN-LAST:event_btnVerActividadesPorFiestaMouseEntered
+
+    private void btnVerActividadesPorFiestaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVerActividadesPorFiestaMouseExited
+        ImageIcon imagen;
+        String dir = "/Imagenes/VerActividadesPorFiesta_off.png";
+        btnVerActividadesPorFiesta.setForeground(Color.BLACK);
+        URL url = this.getClass().getResource(dir);
+        imagen = new ImageIcon(url);
+        btnVerActividadesPorFiesta.setIcon(imagen);
+    }//GEN-LAST:event_btnVerActividadesPorFiestaMouseExited
+
+    private void btnVerActividadesPorFiestaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerActividadesPorFiestaActionPerformed
+        int conteoActividades = 0, conteoSubActividades = 0;
+        ResultSet rs1 = new Actividades().obtenerConteoActividades();
+        ResultSet rs2 = new SubActividades().obtenerConteoSubActividades();
+        try {
+            while (rs1.next() && rs2.next()) {
+                conteoActividades = rs1.getInt("conteo");
+                conteoSubActividades = rs2.getInt("conteo");
+            }
+        } catch (Exception e) {
+        }
+
+        if (conteoActividades != 0) {
+            if (conteoSubActividades != 0) {
+                frm.agregarPanel(new pnlVerSubActividadesPorFiesta());
+            } else {
+                JOptionPane.showMessageDialog(null, "No hay sub-actividades registradas", "Atención", JOptionPane.ERROR_MESSAGE);
+                frm.agregarPanel(new pnlNuevaSubactividad());
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "No hay actividades registradas", "Atención", JOptionPane.ERROR_MESSAGE);
+            frm.agregarPanel(new pnlNuevaActividad());
+        }
+    }//GEN-LAST:event_btnVerActividadesPorFiestaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btNuevaFiesta;
     private javax.swing.JButton btnNuevoProyecto;
+    private javax.swing.JButton btnVerActividadesPorFiesta;
     private javax.swing.JButton btnVerFiestas;
     private javax.swing.JButton btnVerProyectos;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblFiestas;
     // End of variables declaration//GEN-END:variables

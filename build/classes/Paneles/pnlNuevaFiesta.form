@@ -178,6 +178,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtNombreFiesta">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtNombreFiestaKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblCodAmenizacion">
       <Properties>
@@ -347,6 +350,10 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtGanancia">
+      <Events>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtGananciaFocusLost"/>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtGananciaKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
     </Component>
